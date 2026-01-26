@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 30px;
+        }
+
+        /* Columna Izquierda - Ejercicio */
+        .left-section {
+            flex: 1;
+        }
+
+        .exercise-box {
+            background: white;
+            border: 2px solid #333;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .exercise-box h2 {
+            border: 2px solid #333;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: #fff;
+        }
+
+        .geo-section {
+            margin-bottom: 20px;
+        }
+
+        .geo-section h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .network-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .network-list li {
+            padding: 8px;
+            margin: 5px 0;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .network-list li:hover {
+            background: #e0e0e0;
+        }
+
+        /* Columna Derecha - Práctica */
+        .right-section {
+            flex: 1.5;
+        }
+
+        .practice-box {
+            background: white;
+            border: 2px solid #333;
+            padding: 20px;
+        }
+
+        .practice-box h2 {
+            border: 2px solid #333;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .map-selector {
+            margin-bottom: 20px;
+        }
+
+        .map-selector label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .map-selector select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #333;
+            background: white;
+            cursor: pointer;
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .location-item {
+            background: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .location-item label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .location-item input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #999;
+            text-align: center;
+        }
+
+        .direction-box {
+            margin-bottom: 20px;
+        }
+
+        .direction-box label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .direction-box input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #333;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 450px;
+            border: 2px solid #333;
+            background: white;
+        }
+
+        .icon-loc {
+            color: #4285f4;
+        }
+
+        /* Estilos para iframes de redes sociales */
+        .social-iframe {
+            display: none;
+            width: 100%;
+            height: 500px;
+            border: 2px solid #333;
+            background: white;
+            margin-top: 20px;
+        }
+
+        .social-iframe.active {
+            display: block;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mapas</h1>
+    
+    <div class="container">
+        <!-- Columna Izquierda -->
+        <div class="left-section">
+            <div class="exercise-box">
+                <h2>Ejercicio</h2>
+                
+                <div class="geo-section">
+                    <h3>Geolocalización</h3>
+                    <p>Redes Sociales</p>
+                </div>
+
+                <div class="geo-section">
+                    <ul class="network-list">
+                        <li onclick="showSocial('instagram')">📷 Instagram</li>
+                        <li onclick="showSocial('twitter')">🐦 Twitter / X</li>
+                        <li onclick="showSocial('facebook')">📘 Facebook</li>
+                        <li onclick="showSocial('tiktok')">🎵 TikTok</li>
+                        <li onclick="showSocial('youtube')">📺 YouTube</li>
+                    </ul>
+                </div>
+
+                <!-- Contenedores para redes sociales -->
+                <div id="instagram-frame" class="social-iframe">
+                    <iframe src="https://www.instagram.com/embed" allowfullscreen></iframe>
+                </div>
+                <div id="twitter-frame" class="social-iframe">
+                    <iframe src="https://twitter.com/GobCDMX?ref_src=twsrc%5Etfw" allowfullscreen></iframe>
+                </div>
+                <div id="facebook-frame" class="social-iframe">
+                    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FGobiernoCDMX%2F%3Flocale%3Des_LA&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" allowfullscreen></iframe>
+                </div>
+                <div id="tiktok-frame" class="social-iframe">
+                    <iframe src="https://www.tiktok.com/@rutadeviajemx/video/7522294363355876616" allowfullscreen></iframe>
+                </div>
+                <div id="youtube-frame" class="social-iframe">
+                    <iframe src="https://www.youtube.com/embed/KSFEwIfR9iI?si=xtQLNI3qZGvGUBSC" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna Derecha -->
+        <div class="right-section">
+            <div class="practice-box">
+                <h2>
+                    <span class="icon-loc">📍</span>
+                    Práctica - Geolocalización
+                </h2>
+
+                <div class="map-selector">
+                    <label for="locationSelect">Selecciona un lugar:</label>
+                    <select id="locationSelect" onchange="changeLocation()">
+                        <option value="">-- Elige un sitio --</option>
+                        <option value="zocalo">Zócalo de la Ciudad de México</option>
+                        <option value="bellas">Palacio de Bellas Artes</option>
+                        <option value="reforma">Ángel de la Independencia</option>
+                    </select>
+                </div>
+
+                <div class="location-grid">
+                    <div class="location-item">
+                        <label>Latitud</label>
+                        <input type="text" id="latitud" readonly value="">
+                    </div>
+                    <div class="location-item">
+                        <label>Longitud</label>
+                        <input type="text" id="longitud" readonly value="">
+                    </div>
+                    <div class="location-item">
+                        <label>Altitud</label>
+                        <input type="text" id="altitud" readonly value="">
+                    </div>
+                    <div class="location-item">
+                        <label>Exactitud</label>
+                        <input type="text" id="exactitud" readonly value="">
+                    </div>
+                </div>
+
+                <div class="direction-box">
+                    <label>Dirección:</label>
+                    <input type="text" id="direccion" readonly value="">
+                </div>
+
+                <div class="map-container">
+                    <iframe id="mapFrame" 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d481729.04855758674!2d-99.47327143501768!3d19.390436594470376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ce0026db097507%3A0x54061076265ee841!2sCiudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses-419!2smx!4v1769402330747!5m2!1ses-419!2smx"
+                        allowfullscreen="">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const locations = {
+            zocalo: {
+                name: "Zócalo de la Ciudad de México",
+                lat: "19.432608",
+                lng: "-99.133209",
+                alt: "2240 m",
+                acc: "10 m",
+                address: "Plaza de la Constitución S/N, Centro Histórico, Cuauhtémoc, 06000 Ciudad de México, CDMX",
+                osmUrl: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d963191.0055081722!2d-99.1351318!3d19.4355143!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fecd50a0b8c1%3A0xaab5112abdd6e51f!2sZ%C3%B3calo%2C%20Centro%20Hist%C3%B3rico%20de%20la%20Cdad.%20de%20M%C3%A9xico%2C%20Centro%2C%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses-419!2smx!4v1769400259094!5m2!1ses-419!2smx"
+            },
+            bellas: {
+                name: "Palacio de Bellas Artes",
+                lat: "19.435278",
+                lng: "-99.141389",
+                alt: "2240 m",
+                acc: "12 m",
+                address: "Av. Juárez S/N, Centro Histórico, Cuauhtémoc, 06050 Ciudad de México, CDMX",
+                osmUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.4721493331813!2d-99.14607627713505!3d19.435199934889557!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f92b75aa014d%3A0x17d810d20da6e8cf!2sPalacio%20de%20Bellas%20Artes!5e0!3m2!1ses-419!2smx!4v1769400418748!5m2!1ses-419!2smx"
+            },
+            reforma: {
+                name: "Ángel de la Independencia",
+                lat: "19.426944",
+                lng: "-99.167778",
+                alt: "2240 m",
+                acc: "15 m",
+                address: "Paseo de la Reforma, Juárez, Cuauhtémoc, 06600 Ciudad de México, CDMX",
+                osmUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1881.3308153644605!2d-99.16888949331937!3d19.427020595443906!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff35f5bd1563%3A0x6c366f0e2de02ff7!2sEl%20%C3%81ngel%20de%20la%20Independencia!5e0!3m2!1ses-419!2smx!4v1769400471721!5m2!1ses-419!2smx"
+            }
+        };
+
+        function changeLocation() {
+            const select = document.getElementById('locationSelect');
+            const locationKey = select.value;
+            
+            if (locationKey && locations[locationKey]) {
+                const loc = locations[locationKey];
+                
+                document.getElementById('latitud').value = loc.lat;
+                document.getElementById('longitud').value = loc.lng;
+                document.getElementById('altitud').value = loc.alt;
+                document.getElementById('exactitud').value = loc.acc;
+                document.getElementById('direccion').value = loc.address;
+                document.getElementById('mapFrame').src = loc.osmUrl;
+            } else {
+                document.getElementById('latitud').value = '';
+                document.getElementById('longitud').value = '';
+                document.getElementById('altitud').value = '';
+                document.getElementById('exactitud').value = '';
+                document.getElementById('direccion').value = '';
+                document.getElementById('mapFrame').src = "https://www.openstreetmap.org/export/embed.html?bbox=-99.1700%2C19.3900%2C-99.1000%2C19.4700&layer=mapnik";
+            }
+        }
+
+        function showSocial(network) {
+            // Ocultar todos los iframes
+            const allFrames = document.querySelectorAll('.social-iframe');
+            allFrames.forEach(frame => frame.classList.remove('active'));
+            
+            // Mostrar el iframe seleccionado
+            const selectedFrame = document.getElementById(network + '-frame');
+            if (selectedFrame) {
+                selectedFrame.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
