@@ -3,367 +3,625 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapas</title>
+    <title>Geolocalización y Redes Sociales — CDMX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --verde:   #1a5c3a;
+            --verde-l: #2a7a50;
+            --rojo:    #8b1a1a;
+            --rojo-l:  #c0392b;
+            --oro:     #c8a84b;
+            --oro-l:   #e8c86b;
+            --bg:      #f4f1ec;
+            --bg2:     #eae6dd;
+            --surface: #ffffff;
+            --text:    #1a1a1a;
+            --text-m:  #666;
+            --border:  rgba(26,92,58,0.15);
         }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            padding: 20px;
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
         }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            gap: 30px;
-        }
-
-        /* Columna Izquierda - Ejercicio */
-        .left-section {
-            flex: 1;
-        }
-
-        .exercise-box {
-            background: white;
-            border: 2px solid #333;
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-
-        .exercise-box h2 {
-            border: 2px solid #333;
-            padding: 10px;
-            text-align: center;
-            margin-bottom: 20px;
-            background-color: #fff;
-        }
-
-        .geo-section {
-            margin-bottom: 20px;
-        }
-
-        .geo-section h3 {
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .network-list {
-            list-style: none;
+        /* ── HEADER ── */
+        .header {
+            background: var(--verde);
             padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Escudo_de_armas_de_la_Ciudad_de_Mexico.svg/200px-Escudo_de_armas_de_la_Ciudad_de_Mexico.svg.png') no-repeat right 40px center / 120px;
+            opacity: 0.06;
+        }
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 28px 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .header-flag {
+            display: flex;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+        .flag-strip {
+            width: 6px;
+            height: 48px;
+            border-radius: 2px;
+        }
+        .flag-strip:nth-child(1) { background: var(--verde-l); }
+        .flag-strip:nth-child(2) { background: #fff; }
+        .flag-strip:nth-child(3) { background: var(--rojo-l); }
+        .header-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.01em;
+            line-height: 1.1;
+        }
+        .header-title span {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-top: 3px;
+        }
+        .header-badge {
+            margin-left: auto;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 4px;
+            padding: 6px 14px;
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
         }
 
-        .network-list li {
-            padding: 8px;
-            margin: 5px 0;
-            background: #f9f9f9;
-            border: 1px solid #ddd;
+        /* ── LAYOUT ── */
+        .main-wrap {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 28px 40px 40px;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        /* ── PANEL IZQUIERDO ── */
+        .left-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            position: sticky;
+            top: 24px;
+        }
+        .left-panel-header {
+            background: var(--verde);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .left-panel-header img {
+            width: 28px;
+            height: 28px;
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
+        }
+        .left-panel-header h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .section-label {
+            padding: 14px 20px 6px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--text-m);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            border-top: 1px solid var(--border);
+        }
+        .section-label:first-of-type { border-top: none; }
+
+        /* Red social botones */
+        .net-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
             cursor: pointer;
+            transition: all 0.18s;
+            border-left: 3px solid transparent;
         }
-
-        .network-list li:hover {
-            background: #e0e0e0;
+        .net-btn:hover { background: var(--bg); }
+        .net-btn.active {
+            background: rgba(26,92,58,0.07);
+            border-left-color: var(--verde);
         }
-
-        /* Columna Derecha - Práctica */
-        .right-section {
-            flex: 1.5;
-        }
-
-        .practice-box {
-            background: white;
-            border: 2px solid #333;
-            padding: 20px;
-        }
-
-        .practice-box h2 {
-            border: 2px solid #333;
-            padding: 10px;
-            text-align: center;
-            margin-bottom: 20px;
-            background-color: #fff;
+        .net-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .net-icon img { width: 20px; height: 20px; object-fit: contain; }
+        .net-ig  { background: #fdf0f8; }
+        .net-tw  { background: #f0f6ff; }
+        .net-fb  { background: #f0f4ff; }
+        .net-tt  { background: #f0f0f0; }
+        .net-yt  { background: #fff0f0; }
+        .net-name {
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+        .net-handle {
+            font-size: 0.68rem;
+            color: var(--text-m);
+            margin-top: 1px;
         }
 
-        .map-selector {
+        /* Embed area */
+        .embed-area {
+            padding: 16px;
+            border-top: 1px solid var(--border);
+            background: var(--bg);
+            min-height: 200px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        .embed-block { display: none; width: 100%; }
+        .embed-block.active { display: block; }
+        .embed-block iframe {
+            width: 100%;
+            border: none;
+            border-radius: 6px;
+        }
+        /* Instagram / Twitter / TikTok blockquote reset */
+        .embed-block blockquote {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: unset !important;
+        }
+
+        /* ── PANEL DERECHO ── */
+        .right-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .right-panel-header {
+            background: var(--rojo);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .right-panel-header img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
+        }
+        .right-panel-header h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .right-body { padding: 24px; }
+
+        /* Selector */
+        .selector-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             margin-bottom: 20px;
         }
-
-        .map-selector label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
+        .selector-row label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-m);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            white-space: nowrap;
         }
-
-        .map-selector select {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 2px solid #333;
-            background: white;
+        .selector-row select {
+            flex: 1;
+            padding: 9px 14px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
             cursor: pointer;
+            outline: none;
+            transition: border-color 0.18s;
         }
+        .selector-row select:focus { border-color: var(--verde); }
 
-        .location-grid {
+        /* Coords grid */
+        .coords-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 14px;
         }
-
-        .location-item {
-            background: #f9f9f9;
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: center;
+        .coord-item {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            padding: 10px 12px;
+            position: relative;
         }
-
-        .location-item label {
-            display: block;
+        .coord-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--verde);
+            border-radius: 5px 5px 0 0;
+        }
+        .coord-label {
+            font-size: 0.62rem;
+            font-weight: 600;
+            color: var(--text-m);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
             margin-bottom: 5px;
-            font-size: 14px;
+        }
+        .coord-val {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--verde);
         }
 
-        .location-item input {
-            width: 100%;
-            padding: 5px;
-            border: 1px solid #999;
-            text-align: center;
+        /* Dirección */
+        .dir-row {
+            margin-bottom: 18px;
+        }
+        .dir-label {
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: var(--text-m);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 6px;
+        }
+        .dir-val {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            padding: 9px 14px;
+            font-size: 0.82rem;
+            color: var(--text);
+            min-height: 36px;
         }
 
-        .direction-box {
-            margin-bottom: 20px;
+        /* Mapa */
+        .map-wrap {
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            height: 460px;
+            position: relative;
         }
-
-        .direction-box label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
+        .map-wrap::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 6px;
+            box-shadow: inset 0 0 0 1px rgba(26,92,58,0.15);
+            pointer-events: none;
         }
-
-        .direction-box input {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #333;
-        }
-
-        .map-container {
-            width: 100%;
-            height: 450px;
-            border: 2px solid #333;
-            background: white;
-        }
-
-        .icon-loc {
-            color: #4285f4;
-        }
-
-        /* Estilos para iframes de redes sociales */
-        .social-iframe {
-            display: none;
-            width: 100%;
-            height: 500px;
-            border: 2px solid #333;
-            background: white;
-            margin-top: 20px;
-        }
-
-        .social-iframe.active {
-            display: block;
-        }
-
-        iframe {
+        .map-wrap iframe {
             width: 100%;
             height: 100%;
             border: none;
+            display: block;
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            background: var(--verde);
+            text-align: center;
+            padding: 16px;
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 0.06em;
+            margin-top: 0;
+        }
+        .footer span { color: var(--oro-l); }
+
+        /* ── RESPONSIVE ── */
+        @media(max-width: 900px) {
+            .main-wrap { grid-template-columns: 1fr; padding: 16px; }
+            .left-panel { position: static; }
+            .coords-grid { grid-template-columns: repeat(2,1fr); }
+            .header-inner { padding: 20px; }
         }
     </style>
 </head>
 <body>
-    <h1>Mapas</h1>
-    
-    <div class="container">
-        <!-- Columna Izquierda -->
-        <div class="left-section">
-            <div class="exercise-box">
-                <h2>Ejercicio</h2>
-                
-                <div class="geo-section">
-                    <h3>Geolocalización</h3>
-                    <p>Redes Sociales</p>
-                </div>
 
-                <div class="geo-section">
-                    <ul class="network-list">
-                        <li onclick="showSocial('instagram')">📷 Instagram</li>
-                        <li onclick="showSocial('twitter')">🐦 Twitter / X</li>
-                        <li onclick="showSocial('facebook')">📘 Facebook</li>
-                        <li onclick="showSocial('tiktok')">🎵 TikTok</li>
-                        <li onclick="showSocial('youtube')">📺 YouTube</li>
-                    </ul>
-                </div>
+<!-- HEADER -->
+<header class="header">
+    <div class="header-inner">
+        <div class="header-flag">
+            <div class="flag-strip"></div>
+            <div class="flag-strip"></div>
+            <div class="flag-strip"></div>
+        </div>
+        <div class="header-title">
+            Geolocalización y Redes Sociales
+            <span>Ciudad de México · Práctica No.1 · AWOS</span>
+        </div>
+        <div class="header-badge">Cesar Rodriguez Castillo</div>
+    </div>
+</header>
 
-                <!-- Contenedores para redes sociales -->
-                <div id="instagram-frame" class="social-iframe" style="height:auto;overflow-y:auto;">
-                    <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/CillO-xO_at/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF;border:0;border-radius:3px;box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15);margin:1px;max-width:540px;min-width:326px;padding:0;width:99.375%;width:calc(100% - 2px);">
-                      <div style="padding:16px;"><a href="https://www.instagram.com/p/CillO-xO_at/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF;line-height:0;padding:0 0;text-align:center;text-decoration:none;width:100%;" target="_blank">Ver esta publicación en Instagram</a></div>
-                    </blockquote>
-                    <script async src="//www.instagram.com/embed.js"></script>
-                </div>
-                <div id="twitter-frame" class="social-iframe" style="height:auto;overflow-y:auto;">
-                    <blockquote class="twitter-tweet"><p lang="es" dir="ltr">El pueblo mexica fundó Tenochtitlan en 1325 tras encontrar la señal que guiaba su peregrinación: un águila sobre un nopal, lo que dio origen a una de las civilizaciones más importantes de Mesoamérica.<br><br>A más de siete siglos, nuestra nación conserva la memoria histórica de un… <a href="https://t.co/texxUsbG6l">pic.twitter.com/texxUsbG6l</a></p>&mdash; Gobierno de México (@GobiernoMX) <a href="https://twitter.com/GobiernoMX/status/2032513306162819108?ref_src=twsrc%5Etfw">March 13, 2026</a></blockquote>
-                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                </div>
-                <div id="facebook-frame" class="social-iframe">
-                    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FGobiernoCDMX%2F%3Flocale%3Des_LA&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" allowfullscreen></iframe>
-                </div>
-                <div id="tiktok-frame" class="social-iframe" style="height:auto;overflow-y:auto;">
-                    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@atiemponoticias0/video/7616547311409270024" data-video-id="7616547311409270024" style="max-width:605px;min-width:325px;">
-                      <section>
-                        <a target="_blank" title="@atiemponoticias0" href="https://www.tiktok.com/@atiemponoticias0?refer=embed">@atiemponoticias0</a>
-                        <a title="tiempoextra" target="_blank" href="https://www.tiktok.com/tag/tiempoextra?refer=embed">#TiempoExtra</a> El <a title="zócalo" target="_blank" href="https://www.tiktok.com/tag/z%C3%B3calo?refer=embed">#Zócalo</a> de la Ciudad de México.
-                        <a target="_blank" title="♬ sonido original - a Tiempo Noticias" href="https://www.tiktok.com/music/sonido-original-7616547361132727056?refer=embed">♬ sonido original - a Tiempo Noticias</a>
-                      </section>
-                    </blockquote>
-                    <script async src="https://www.tiktok.com/embed.js"></script>
-                </div>
-                <div id="youtube-frame" class="social-iframe">
-                    <iframe src="https://www.youtube.com/embed/KSFEwIfR9iI?si=xtQLNI3qZGvGUBSC" allowfullscreen></iframe>
-                </div>
+<!-- MAIN -->
+<div class="main-wrap">
+
+    <!-- PANEL IZQUIERDO -->
+    <div class="left-panel">
+        <div class="left-panel-header">
+            <h2>Redes Sociales</h2>
+        </div>
+
+        <div class="section-label">Selecciona una red</div>
+
+        <div class="net-btn active" onclick="showNet('ig')">
+            <div class="net-icon net-ig">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/240px-Instagram_icon.png" alt="Instagram">
+            </div>
+            <div>
+                <div class="net-name">Instagram</div>
+                <div class="net-handle">@zocalocdmx</div>
             </div>
         </div>
 
-        <!-- Columna Derecha -->
-        <div class="right-section">
-            <div class="practice-box">
-                <h2>
-                    <span class="icon-loc">📍</span>
-                    Práctica - Geolocalización
-                </h2>
+        <div class="net-btn" onclick="showNet('tw')">
+            <div class="net-icon net-tw">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_of_Twitter.svg/512px-Logo_of_Twitter.svg.png" alt="Twitter">
+            </div>
+            <div>
+                <div class="net-name">Twitter / X</div>
+                <div class="net-handle">@GobiernoMX</div>
+            </div>
+        </div>
 
-                <div class="map-selector">
-                    <label for="locationSelect">Selecciona un lugar:</label>
-                    <select id="locationSelect" onchange="changeLocation()">
-                        <option value="">-- Elige un sitio --</option>
-                        <option value="zocalo">Zócalo de la Ciudad de México</option>
-                        <option value="bellas">Palacio de Bellas Artes</option>
-                        <option value="reforma">Ángel de la Independencia</option>
-                    </select>
+        <div class="net-btn" onclick="showNet('fb')">
+            <div class="net-icon net-fb">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/2023_Facebook_icon.svg/240px-2023_Facebook_icon.svg.png" alt="Facebook">
+            </div>
+            <div>
+                <div class="net-name">Facebook</div>
+                <div class="net-handle">@GobiernoCDMX</div>
+            </div>
+        </div>
+
+        <div class="net-btn" onclick="showNet('tt')">
+            <div class="net-icon net-tt">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/TikTok_logo.svg/320px-TikTok_logo.svg.png" alt="TikTok">
+            </div>
+            <div>
+                <div class="net-name">TikTok</div>
+                <div class="net-handle">@atiemponoticias0</div>
+            </div>
+        </div>
+
+        <div class="net-btn" onclick="showNet('yt')">
+            <div class="net-icon net-yt">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_%282017%29.svg/240px-YouTube_full-color_icon_%282017%29.svg.png" alt="YouTube">
+            </div>
+            <div>
+                <div class="net-name">YouTube</div>
+                <div class="net-handle">CDMX Oficial</div>
+            </div>
+        </div>
+
+        <!-- EMBED AREA -->
+        <div class="embed-area">
+
+            <div class="embed-block active" id="embed-ig">
+                <blockquote class="instagram-media" data-instgrm-captioned
+                    data-instgrm-permalink="https://www.instagram.com/p/CillO-xO_at/?utm_source=ig_embed&utm_campaign=loading"
+                    data-instgrm-version="14"
+                    style="background:#FFF;border:0;border-radius:3px;
+                    box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15);
+                    margin:0;max-width:100%;min-width:280px;padding:0;width:100%;">
+                    <div style="padding:16px;">
+                        <a href="https://www.instagram.com/p/CillO-xO_at/?utm_source=ig_embed&utm_campaign=loading"
+                            style="background:#FFFFFF;line-height:0;padding:0;text-align:center;text-decoration:none;width:100%;"
+                            target="_blank">Ver esta publicación en Instagram</a>
+                    </div>
+                </blockquote>
+                <script async src="//www.instagram.com/embed.js"></script>
+            </div>
+
+            <div class="embed-block" id="embed-tw">
+                <blockquote class="twitter-tweet" data-lang="es">
+                    <p lang="es" dir="ltr">El pueblo mexica fundó Tenochtitlan en 1325 tras encontrar la señal que guiaba su peregrinación: un águila sobre un nopal.</p>
+                    &mdash; Gobierno de México (@GobiernoMX)
+                    <a href="https://twitter.com/GobiernoMX/status/2032513306162819108?ref_src=twsrc%5Etfw">March 13, 2026</a>
+                </blockquote>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+
+            <div class="embed-block" id="embed-fb">
+                <iframe
+                    src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FGobiernoCDMX%2F%3Flocale%3Des_LA&tabs=timeline&width=280&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+                    width="100%" height="500" style="border:none;overflow:hidden;border-radius:6px;"
+                    scrolling="no" frameborder="0" allowfullscreen="true"
+                    allow="autoplay;clipboard-write;encrypted-media;picture-in-picture;web-share">
+                </iframe>
+            </div>
+
+            <div class="embed-block" id="embed-tt">
+                <blockquote class="tiktok-embed"
+                    cite="https://www.tiktok.com/@atiemponoticias0/video/7616547311409270024"
+                    data-video-id="7616547311409270024"
+                    style="max-width:100%;min-width:280px;">
+                    <section>
+                        <a target="_blank" title="@atiemponoticias0" href="https://www.tiktok.com/@atiemponoticias0?refer=embed">@atiemponoticias0</a>
+                        El Zócalo de la Ciudad de México.
+                        <a target="_blank" title="♬ sonido original" href="https://www.tiktok.com/music/sonido-original-7616547361132727056?refer=embed">♬ sonido original - a Tiempo Noticias</a>
+                    </section>
+                </blockquote>
+                <script async src="https://www.tiktok.com/embed.js"></script>
+            </div>
+
+            <div class="embed-block" id="embed-yt">
+                <iframe
+                    src="https://www.youtube.com/embed/KSFEwIfR9iI?si=xtQLNI3qZGvGUBSC"
+                    height="200" style="width:100%;border-radius:6px;"
+                    allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture">
+                </iframe>
+            </div>
+
+        </div><!-- /embed-area -->
+    </div><!-- /left-panel -->
+
+    <!-- PANEL DERECHO -->
+    <div class="right-panel">
+        <div class="right-panel-header">
+            <h2>Geolocalización — Ciudad de México</h2>
+        </div>
+        <div class="right-body">
+
+            <div class="selector-row">
+                <label>Lugar</label>
+                <select id="locationSelect" onchange="changeLocation()">
+                    <option value="">— Elige un sitio —</option>
+                    <option value="zocalo">Zócalo de la Ciudad de México</option>
+                    <option value="bellas">Palacio de Bellas Artes</option>
+                    <option value="reforma">Ángel de la Independencia</option>
+                </select>
+            </div>
+
+            <div class="coords-grid">
+                <div class="coord-item">
+                    <div class="coord-label">Latitud</div>
+                    <div class="coord-val" id="latitud">—</div>
                 </div>
-
-                <div class="location-grid">
-                    <div class="location-item">
-                        <label>Latitud</label>
-                        <input type="text" id="latitud" readonly value="">
-                    </div>
-                    <div class="location-item">
-                        <label>Longitud</label>
-                        <input type="text" id="longitud" readonly value="">
-                    </div>
-                    <div class="location-item">
-                        <label>Altitud</label>
-                        <input type="text" id="altitud" readonly value="">
-                    </div>
-                    <div class="location-item">
-                        <label>Exactitud</label>
-                        <input type="text" id="exactitud" readonly value="">
-                    </div>
+                <div class="coord-item">
+                    <div class="coord-label">Longitud</div>
+                    <div class="coord-val" id="longitud">—</div>
                 </div>
-
-                <div class="direction-box">
-                    <label>Dirección:</label>
-                    <input type="text" id="direccion" readonly value="">
+                <div class="coord-item">
+                    <div class="coord-label">Altitud</div>
+                    <div class="coord-val" id="altitud">—</div>
                 </div>
-
-                <div class="map-container">
-                    <iframe id="mapFrame" 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d481729.04855758674!2d-99.47327143501768!3d19.390436594470376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ce0026db097507%3A0x54061076265ee841!2sCiudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses-419!2smx!4v1769402330747!5m2!1ses-419!2smx"
-                        allowfullscreen="">
-                    </iframe>
+                <div class="coord-item">
+                    <div class="coord-label">Exactitud</div>
+                    <div class="coord-val" id="exactitud">—</div>
                 </div>
             </div>
+
+            <div class="dir-row">
+                <div class="dir-label">Dirección</div>
+                <div class="dir-val" id="direccion">Selecciona un lugar para ver la dirección</div>
+            </div>
+
+            <div class="map-wrap">
+                <iframe id="mapFrame"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d481729.04855758674!2d-99.47327143501768!3d19.390436594470376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ce0026db097507%3A0x54061076265ee841!2sCiudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses-419!2smx!4v1769402330747!5m2!1ses-419!2smx"
+                    allowfullscreen loading="lazy">
+                </iframe>
+            </div>
+
         </div>
     </div>
 
-    <script>
-        const locations = {
-            zocalo: {
-                name: "Zócalo de la Ciudad de México",
-                lat: "19.432608",
-                lng: "-99.133209",
-                alt: "2240 m",
-                acc: "10 m",
-                address: "Plaza de la Constitución S/N, Centro Histórico, Cuauhtémoc, 06000 Ciudad de México, CDMX",
-                osmUrl: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d963191.0055081722!2d-99.1351318!3d19.4355143!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fecd50a0b8c1%3A0xaab5112abdd6e51f!2sZ%C3%B3calo%2C%20Centro%20Hist%C3%B3rico%20de%20la%20Cdad.%20de%20M%C3%A9xico%2C%20Centro%2C%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses-419!2smx!4v1769400259094!5m2!1ses-419!2smx"
-            },
-            bellas: {
-                name: "Palacio de Bellas Artes",
-                lat: "19.435278",
-                lng: "-99.141389",
-                alt: "2240 m",
-                acc: "12 m",
-                address: "Av. Juárez S/N, Centro Histórico, Cuauhtémoc, 06050 Ciudad de México, CDMX",
-                osmUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.4721493331813!2d-99.14607627713505!3d19.435199934889557!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f92b75aa014d%3A0x17d810d20da6e8cf!2sPalacio%20de%20Bellas%20Artes!5e0!3m2!1ses-419!2smx!4v1769400418748!5m2!1ses-419!2smx"
-            },
-            reforma: {
-                name: "Ángel de la Independencia",
-                lat: "19.426944",
-                lng: "-99.167778",
-                alt: "2240 m",
-                acc: "15 m",
-                address: "Paseo de la Reforma, Juárez, Cuauhtémoc, 06600 Ciudad de México, CDMX",
-                osmUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1881.3308153644605!2d-99.16888949331937!3d19.427020595443906!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff35f5bd1563%3A0x6c366f0e2de02ff7!2sEl%20%C3%81ngel%20de%20la%20Independencia!5e0!3m2!1ses-419!2smx!4v1769400471721!5m2!1ses-419!2smx"
-            }
-        };
+</div><!-- /main-wrap -->
 
-        function changeLocation() {
-            const select = document.getElementById('locationSelect');
-            const locationKey = select.value;
-            
-            if (locationKey && locations[locationKey]) {
-                const loc = locations[locationKey];
-                
-                document.getElementById('latitud').value = loc.lat;
-                document.getElementById('longitud').value = loc.lng;
-                document.getElementById('altitud').value = loc.alt;
-                document.getElementById('exactitud').value = loc.acc;
-                document.getElementById('direccion').value = loc.address;
-                document.getElementById('mapFrame').src = loc.osmUrl;
-            } else {
-                document.getElementById('latitud').value = '';
-                document.getElementById('longitud').value = '';
-                document.getElementById('altitud').value = '';
-                document.getElementById('exactitud').value = '';
-                document.getElementById('direccion').value = '';
-                document.getElementById('mapFrame').src = "https://www.openstreetmap.org/export/embed.html?bbox=-99.1700%2C19.3900%2C-99.1000%2C19.4700&layer=mapnik";
-            }
-        }
+<footer class="footer">
+    Práctica No.1 — Geolocalización y Redes Sociales · <span>Cesar Rodriguez Castillo</span> · Universidad Tecnológica de Nezahuacoyotl · 2025
+</footer>
 
-        function showSocial(network) {
-            // Ocultar todos los iframes
-            const allFrames = document.querySelectorAll('.social-iframe');
-            allFrames.forEach(frame => frame.classList.remove('active'));
-            
-            // Mostrar el iframe seleccionado
-            const selectedFrame = document.getElementById(network + '-frame');
-            if (selectedFrame) {
-                selectedFrame.classList.add('active');
-            }
-        }
-    </script>
+<script>
+const locations = {
+    zocalo: {
+        lat:'19.432608', lng:'-99.133209', alt:'2240 m', acc:'10 m',
+        address:'Plaza de la Constitución S/N, Centro Histórico, Cuauhtémoc, 06000 Ciudad de México, CDMX',
+        map:'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d963191.0055081722!2d-99.1351318!3d19.4355143!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fecd50a0b8c1%3A0xaab5112abdd6e51f!2sZ%C3%B3calo%2C%20Centro%20Hist%C3%B3rico%20de%20la%20Cdad.%20de%20M%C3%A9xico%2C%20Centro%2C%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses-419!2smx!4v1769400259094!5m2!1ses-419!2smx'
+    },
+    bellas: {
+        lat:'19.435278', lng:'-99.141389', alt:'2240 m', acc:'12 m',
+        address:'Av. Juárez S/N, Centro Histórico, Cuauhtémoc, 06050 Ciudad de México, CDMX',
+        map:'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.4721493331813!2d-99.14607627713505!3d19.435199934889557!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f92b75aa014d%3A0x17d810d20da6e8cf!2sPalacio%20de%20Bellas%20Artes!5e0!3m2!1ses-419!2smx!4v1769400418748!5m2!1ses-419!2smx'
+    },
+    reforma: {
+        lat:'19.426944', lng:'-99.167778', alt:'2240 m', acc:'15 m',
+        address:'Paseo de la Reforma, Juárez, Cuauhtémoc, 06600 Ciudad de México, CDMX',
+        map:'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1881.3308153644605!2d-99.16888949331937!3d19.427020595443906!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff35f5bd1563%3A0x6c366f0e2de02ff7!2sEl%20%C3%81ngel%20de%20la%20Independencia!5e0!3m2!1ses-419!2smx!4v1769400471721!5m2!1ses-419!2smx'
+    }
+};
+
+function changeLocation(){
+    const key = document.getElementById('locationSelect').value;
+    if(key && locations[key]){
+        const l = locations[key];
+        document.getElementById('latitud').textContent  = l.lat;
+        document.getElementById('longitud').textContent = l.lng;
+        document.getElementById('altitud').textContent  = l.alt;
+        document.getElementById('exactitud').textContent= l.acc;
+        document.getElementById('direccion').textContent= l.address;
+        document.getElementById('mapFrame').src         = l.map;
+    } else {
+        ['latitud','longitud','altitud','exactitud'].forEach(id=>document.getElementById(id).textContent='—');
+        document.getElementById('direccion').textContent='Selecciona un lugar para ver la dirección';
+        document.getElementById('mapFrame').src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d481729.04855758674!2d-99.47327143501768!3d19.390436594470376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ce0026db097507%3A0x54061076265ee841!2sCiudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses-419!2smx!4v1769402330747!5m2!1ses-419!2smx';
+    }
+}
+
+function showNet(id){
+    document.querySelectorAll('.net-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.embed-block').forEach(e=>e.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    document.getElementById('embed-'+id).classList.add('active');
+    // Re-trigger Instagram embed if needed
+    if(id==='ig' && window.instgrm) window.instgrm.Embeds.process();
+    if(id==='tw' && window.twttr) window.twttr.widgets.load();
+}
+</script>
 </body>
 </html>
